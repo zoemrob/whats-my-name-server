@@ -1,0 +1,3 @@
+<div>test
+    <?= $hello ?? '' ?>
+</div>

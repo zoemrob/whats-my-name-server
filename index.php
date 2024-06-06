@@ -1,8 +1,9 @@
 <?php
 
+use App\View\Renderer;
 use Dotenv\Dotenv;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use GuzzleHttp\Psr7\Response as Response;
+use GuzzleHttp\Psr7\Request as Request;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -25,4 +26,13 @@ $app->addRoutingMiddleware();
  * Note: This middleware should be added last. It will not handle any exceptions/errors
  * for middleware added after it.
  */
-$errorMiddleware = $app->addErrorMiddleware($_ENV['env'], true, true);
+$errorMiddleware = $app->addErrorMiddleware($_ENV['env'] === 'dev', true, true);
+
+$app->get('/', function (Request $request, Response $response, $args) {
+    $renderer = new Renderer();
+    $response->getBody()->write($renderer('home.php', ['hello' => 'Hello World!']));
+
+    return $response;
+});
+
+$app->run();
