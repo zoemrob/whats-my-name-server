@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\WhatsMyName;
 use App\View\Renderer;
 use Dotenv\Dotenv;
 use GuzzleHttp\Psr7\Response as Response;
@@ -48,6 +49,16 @@ $app->get('/check', function (Request $request, Response $response, $args) {
     if (isset($queryParams['url'])) {
         // TODO: testing, fix later
         $response->getBody()->write(json_encode(['found' => true]));
+        return $response;
+    }
+
+    if (isset($queryParams['username'])) {
+        $siteUrls = array_map(
+            fn($site) => $site->checkUri($queryParams['username']),
+            (new WhatsMyName())->getSites()
+        );
+
+        $response->getBody()->write(json_encode(['checkUris' => $siteUrls]));
         return $response;
     }
 
