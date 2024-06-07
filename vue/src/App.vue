@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import UsernameInput from './components/UsernameInput.vue';
 </script>
 
 <template>
   <div>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <img
+        alt="Vue logo"
+        class="logo"
+        src="https://github.com/WebBreacher/WhatsMyName/blob/main/whatsmyname.png?raw=true"
+        width="50%"
+    />
 
     <div class="wrapper">
-      <HelloWorld msg="Hmm are you hot reloading?" />
+      <h2>What's My Name - Vue/PHP</h2>
+      <UsernameInput />
     </div>
-  </div>
-
-  <div>
-    <TheWelcome />
   </div>
 </template>
 

@@ -35,4 +35,23 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $response;
 });
 
+$app->get('/check', function (Request $request, Response $response, $args) {
+    $query = $request->getUri()->getQuery();
+    if (empty($query)) {
+        return $response->withStatus(400);
+    }
+
+    $queryParams = [];
+    parse_str($query, $queryParams);
+
+
+    if (isset($queryParams['url'])) {
+        // TODO: testing, fix later
+        $response->getBody()->write(json_encode(['found' => true]));
+        return $response;
+    }
+
+    return $response->withStatus(400);
+});
+
 $app->run();
