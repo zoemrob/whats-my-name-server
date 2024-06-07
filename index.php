@@ -26,7 +26,7 @@ $app->addRoutingMiddleware();
  * Note: This middleware should be added last. It will not handle any exceptions/errors
  * for middleware added after it.
  */
-$errorMiddleware = $app->addErrorMiddleware($_ENV['env'] === 'dev', true, true);
+$errorMiddleware = $app->addErrorMiddleware($_ENV['ENVIRONMENT'] === 'dev', true, true);
 
 $app->get('/', function (Request $request, Response $response, $args) {
     $renderer = new Renderer();
